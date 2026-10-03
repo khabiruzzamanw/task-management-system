@@ -6,5 +6,5 @@ export default async function get_tasks_controller(req, res) {
 
   const tasks = await get_tasks_service(get_tasks_user);
 
-  return new App_response("tasks is fetched successfully", 200, { tasks });
+  return new App_response("tasks is fetched successfully", 200, { tasks }).send_response(res);
 }

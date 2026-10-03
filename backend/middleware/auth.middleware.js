@@ -6,7 +6,7 @@ import { App_error } from "../utils/app_outcome_handler.js";
 export async function authentify(req, res, next) {
   const token = req.headers?.authorization;
   if (!token) {
-    return new App_error("token isn't sent", 401, "UNAUTHENTICATED");
+    throw new App_error("token isn't sent", 401, "UNAUTHENTICATED");
   }
 
   const access_token = token.split(" ")[1];
@@ -16,7 +16,7 @@ export async function authentify(req, res, next) {
   );
 
   if (!decoded_user) {
-    return new App_error("token is invalid", 401, "TOKEN_IS_INVALID");
+    throw new App_error("token is invalid", 401, "TOKEN_IS_INVALID");
   }
 
   const authorized_user = await User.findById(decoded_user._id).select(
@@ -24,7 +24,7 @@ export async function authentify(req, res, next) {
   );
 
   if (!authorized_user) {
-    return new App_error("token is expired", 401, "TOKEN_IS_EXPIRED");
+    throw new App_error("token is expired", 401, "TOKEN_IS_EXPIRED");
   }
 
   req.user = authorized_user;

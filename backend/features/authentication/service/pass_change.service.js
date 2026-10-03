@@ -14,7 +14,7 @@ export default async function pass_change_service({
     get_user.password,
   );
   if (!is_pass_valid) {
-    throw App_error(
+    throw new App_error(
       "the current password is wrong",
       400,
       "CURRENT_PASSWORD_IS_WRONG",

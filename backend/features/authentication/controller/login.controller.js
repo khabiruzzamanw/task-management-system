@@ -8,6 +8,9 @@ import { App_error, App_response } from "../../../utils/app_outcome_handler.js";
 
 export default async function login_controller(req, res) {
   const { email, password } = req.body;
+  if (!email || !password) {
+    throw new App_error(" email or pasword is missing", 400, "VALIDATION_ERROR");
+  }
 
   const email_parts = email.split("@");
 

@@ -4,7 +4,7 @@ import { App_error, App_response } from "../../../utils/app_outcome_handler.js";
 export default async function refresh_token_controller(req, res) {
   const token = req.cookies?.refreshToken;
   if (!token) {
-    return new App_error("token is expired", 401, "NO_REFRESH_TOKEN");
+    throw new App_error("token is expired", 401, "NO_REFRESH_TOKEN");
   }
 
   const refreshed_data = await refresh_tokens_service(token);

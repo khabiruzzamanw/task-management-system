@@ -8,13 +8,18 @@ const min_length = 8;
 export async function register_controller(req, res) {
   const { name, password, email } = req.body;
 
+  if (!email || !password || !name) {
+    throw new App_error(" email or pasword or name is missing", 400, "VALIDATION_ERROR");
+  }
+
+
   const email_parts = email.split("@");
   if (!email_parts) {
-    return new App_error("the email is inappropriate", 401, "INVALID_EMAIL");
+    throw new App_error("the email is inappropriate", 401, "INVALID_EMAIL");
   }
 
   if (email_parts.length !== 2 || email_parts[1] !== variables.ORG_DOMAIN) {
-    return new App_error(
+    throw new App_error(
       "the email is inappropriate",
       401,
       "INVALID_EMAIL_DOMAIN",
@@ -22,7 +27,7 @@ export async function register_controller(req, res) {
   }
 
   if (password.length < min_length || password.length > max_length) {
-    return new App_error(
+    throw new App_error(
       "password has to be between 8 and 72 chars",
       400,
       "WEAK_PASSWORD",

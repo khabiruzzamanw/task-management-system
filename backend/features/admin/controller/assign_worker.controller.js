@@ -5,7 +5,7 @@ export default async function assign_worker_controller(req, res) {
   const { manager_email, worker_email } = req.body;
 
   if (!manager_email || !worker_email) {
-    return new App_error("worker or manager email is missing",400,"VALIDATION_ERROR")
+    throw new App_error("worker or manager email is missing",400,"VALIDATION_ERROR")
   }
 
 

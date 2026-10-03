@@ -11,19 +11,20 @@ export default async function refresh_tokens_service(token) {
     variables.REFRESH_TOKEN_SECRET_KEY,
   );
   if (!decoded_user) {
-    throw App_error("token is expired", 401, "INVALID_TOKEN");
+    throw new App_error("token is expired", 401, "INVALID_TOKEN");
   }
   const authorized_user = await User.findById(decoded_user._id).select(
     "-password",
   );
 
-  const is_refresh_token_valid = await bcryptjs.compare(
+  const is_refresh_token_valid =
+    bcryptjs.compare(
     token,
     authorized_user.refresh_token,
   );
 
   if (!is_refresh_token_valid) {
-    throw App_error("token is invalid or expired", 401, "INVALID_TOKEN");
+    throw new App_error("token is invalid or expired", 401, "INVALID_TOKEN");
   }
 
   const new_access_token = token_generator(

@@ -14,7 +14,7 @@ export async function task_creation_controller(req, res) {
     !assigned_by ||
     !manager_email
   ) {
-    return new App_error(
+    throw new App_error(
       "task data is missing",
       400,
       "VALIDATION_ERROR",
