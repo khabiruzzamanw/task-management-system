@@ -5,7 +5,7 @@ export default function No_user_protected_route() {
   const { user, loading } = useAuth();
 
   if (loading) {
-    return <div className="text-4xl text-green-200">loading</div>;
+    return <div className="text-4xl text-white">loading</div>;
   }
 
   if (user?.role === "admin") {
@@ -18,5 +18,5 @@ export default function No_user_protected_route() {
     return <Navigate to="/worker" replace />;
   }
 
-  return (<Outlet />);
+  return <Outlet />;
 }

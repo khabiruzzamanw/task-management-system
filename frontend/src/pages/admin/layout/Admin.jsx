@@ -116,7 +116,7 @@ export default function Admin() {
 
         <div>
           {tasks.map(function (task) {
-            <div>
+            return(<div>
               <span className="">{task.title}</span>
               <span className="">{task.description}</span>
               <span className="">{task.priority}</span>
@@ -127,7 +127,7 @@ export default function Admin() {
                   : task.assigned_to}
               </span>
               <span className="">{task.manager}</span>
-            </div>;
+            </div>)
           })}
         </div>
       </div>

@@ -10,7 +10,7 @@ let restored_session = null;
 
 async function fetch_session() {
   const response = await fetch(
-    "http://localhost:3000/api/user/refresh-tokens",
+    "http://localhost:3000/api/authentication/refresh-tokens",
     { credentials: "include" },
   );
   const data = await response.json();

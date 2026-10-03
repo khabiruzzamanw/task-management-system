@@ -2,7 +2,7 @@
 
 
 export async function get_me_service() {
-  const response = await fetch("https://localhost:3000/api/user/get-me");
+  const response = await fetch("http://localhost:3000/api/authentication/get-me");
   if (!response.ok) {
     new error();
     error.json({

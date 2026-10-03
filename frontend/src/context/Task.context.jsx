@@ -17,7 +17,7 @@ let restored_session = null;
 
 async function fetch_session(access_token) {
   const response = await fetch(
-    "http://localhost:3000/api/user/task/get-tasks",
+    "http://localhost:3000/api/task/get-tasks",
     {
       credentials: "include",
       headers: {

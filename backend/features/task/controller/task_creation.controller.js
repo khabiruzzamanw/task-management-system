@@ -1,3 +1,4 @@
+import { App_error, App_response } from "../../../utils/app_outcome_handler.js";
 import task_creation_service from "../service/task_creation.service.js";
 
 export async function task_creation_controller(req, res) {
@@ -13,37 +14,22 @@ export async function task_creation_controller(req, res) {
     !assigned_by ||
     !manager_email
   ) {
-    return res.status(405).json({
-      message: "task data is incomplete",
-      success: false,
-    });
+    return new App_error(
+      "task data is missing",
+      400,
+      "VALIDATION_ERROR",
+      "some of the task info is missing from fillng space",
+    );
   }
 
-  try {
-    const response = await task_creation_service({
-      title,
-      description,
-      priority,
-      status,
-      manager_email,
-      assigned_by,
-    });
+  const response = await task_creation_service({
+    title,
+    description,
+    priority,
+    status,
+    manager_email,
+    assigned_by,
+  });
 
-    if (!response.ok) {
-      return res.status(405).json({
-        message: "task data couldn't posted",
-        success: false,
-      });
-    }
-
-    res.status(201).json({
-      message: "task data posted",
-      success: true,
-    });
-  } catch (error) {
-    return res.status(500).json({
-      message: error.message || " couldn't create task",
-      success: false,
-    });
-  }
+  return new App_response("task is created", 200).send_response(res);
 }

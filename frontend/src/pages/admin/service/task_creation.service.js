@@ -1,7 +1,7 @@
 export async function task_creation_service(task_form, access_token) {
-  const response = await fetch("http://localhost:3000/api/user/task/create-task", {
+  const response = await fetch("http://localhost:3000/api/task/create-task", {
     method: "POST",
-    body: JSON.stringify({task_form}),
+    body: JSON.stringify(task_form),
     credentials: "include",
     headers: {
       "Content-Type": "application/json",

@@ -1,6 +1,6 @@
 export async function register_worker_service(form_data, token) {
   const response = await fetch(
-    "http://localhost:3000/api/user/admin/register_worker",
+    "http://localhost:3000/api/authentication/register-user",
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },

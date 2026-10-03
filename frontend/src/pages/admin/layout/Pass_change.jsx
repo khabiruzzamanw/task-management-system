@@ -4,7 +4,7 @@ import { useAuth } from "../../../context/Auth.context";
 import { useNavigate } from "react-router-dom";
 
 export default function Pass_change() {
-  const [old_password, set_old_Pasword] = useState("");
+  const [current_password, set_current_password] = useState("");
   const [new_password, set_new_password] = useState("");
   const [new_password_again, set_new_password_again] = useState("");
   const [submitting, set_submitting] = useState(false);
@@ -42,7 +42,7 @@ export default function Pass_change() {
     set_submitting(true);
     const data = await pass_change_controller(
       new_password,
-      old_password,
+      current_password,
       access_token,
     );
     set_submitting(false);
@@ -81,11 +81,11 @@ export default function Pass_change() {
             <input
               className="input-vintage"
               type="password"
-              name="old_password"
+              name="current_password"
               placeholder="••••••••"
-              value={old_password}
+              value={current_password}
               onChange={function (e) {
-                set_old_Pasword(e.target.value);
+                set_current_password(e.target.value);
               }}
               required
             />

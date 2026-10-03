@@ -13,6 +13,7 @@ export default function Login() {
       return { ...prev, [e.target.name]: e.target.value };
     });
   }
+  if(loading){return(<><div className="text-4xl text-green-200">loading</div></>)}
 
   async function form_handler(e) {
     e.preventDefault();
