@@ -17,17 +17,17 @@ export default function Login() {
 
   async function form_handler(e) {
     e.preventDefault();
-    const stat = await login_controller(worker);
-    console.log(stat.user);
-    set_user(stat.user);
-    set_access_token(stat.accessToken);
-    if (!stat.success) {
-      return console.log(`${stat.message}`);
+    const result = await login_controller(worker);
+    console.log(result.data.user);
+    set_user(result.data.user);
+    set_access_token(result.data.accessToken);
+    if (!result.success) {
+      return console.log(`${result.message}`);
     }
     console.log("yay");
-    if (stat.user?.role === "admin") {
+    if (result.data.user?.role === "admin") {
       navigate("/admin");
-    } else if (stat.user?.role === "manager") {
+    } else if (result.data.user?.role === "manager") {
       navigate("/manager");
     } else {
       navigate("/worker");

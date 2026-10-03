@@ -13,13 +13,13 @@ export default function Promotion() {
 
   async function promote_handler(email) {
     set_promoting_email(email);
-    const data = await promotion_controller(email, access_token);
+    const result = await promotion_controller(email, access_token);
     set_promoting_email(null);
 
-    if (data.success) {
+    if (result.success) {
       await refresh_employee();
     }
-    console.log(data.message);
+    console.log(result.message);
   }
 
   if (loading) {

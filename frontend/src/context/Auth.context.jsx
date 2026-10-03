@@ -13,11 +13,11 @@ async function fetch_session() {
     "http://localhost:3000/api/authentication/refresh-tokens",
     { credentials: "include" },
   );
-  const data = await response.json();
+  const result = await response.json();
   if (!response.ok) {
-    throw new Error(data.message);
+    throw new Error(result.message);
   }
-  return data;
+  return result.data;
 }
 
 export function Auth_Provider({ children }) {

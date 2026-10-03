@@ -40,14 +40,14 @@ export default function Pass_change() {
     }
 
     set_submitting(true);
-    const data = await pass_change_controller(
+    const result = await pass_change_controller(
       new_password,
       current_password,
       access_token,
     );
     set_submitting(false);
 
-    if (!data.success) {
+    if (!result.success) {
       return console.log("couldn't change the pass from frontend");
     }
 

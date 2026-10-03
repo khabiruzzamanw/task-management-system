@@ -4,6 +4,7 @@ import { task_creation_controller } from "../controller/task_creation.controller
 import { useNavigate } from "react-router-dom";
 import { useEmployee } from "../../../context/Employee.context.jsx";
 import { useAuth } from "../../../context/Auth.context.jsx";
+import { useTaskCenter } from "../../../context/Task.context.jsx";
 
 export default function Task_creation() {
   const [task_form, set_task_form] = useState({
@@ -16,6 +17,7 @@ export default function Task_creation() {
   const navigate = useNavigate();
   const { employee, loading } = useEmployee();
   const { access_token } = useAuth();
+    const { tasks, refresh_tasks } = useTaskCenter();
 
   const managers = employee.filter(function (user) {
     return user.role === "manager";
@@ -23,8 +25,9 @@ export default function Task_creation() {
 
   async function submit_handler(e) {
     e.preventDefault();
-    const data = await task_creation_controller(task_form, access_token);
-    if (data.success === true) {
+    const result = await task_creation_controller(task_form, access_token);
+    if (result.success) {
+      refresh_tasks();
       navigate("/admin");
     }
   }

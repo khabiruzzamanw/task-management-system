@@ -17,13 +17,13 @@ export default function Register_worker() {
 
   async function form_handler(e) {
     e.preventDefault();
-    const stat = await register_worker_controller(worker, access_token);
-    console.log(stat.user);
-    console.log(stat.message);
+    const result = await register_worker_controller(worker, access_token);
+    console.log(result.data.user);
+    console.log(result.message);
 
     navigate("/admin");
 
-    return console.log(`${stat.message}`);
+    return console.log(`${result.message}`);
   }
   return (
     <>

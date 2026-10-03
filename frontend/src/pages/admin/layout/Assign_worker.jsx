@@ -15,20 +15,20 @@ export default function Assign_worker() {
   async function submit_handler(e) {
     e.preventDefault();
     set_submitting(true);
-    const data = await assign_worker_controller(
+    const result = await assign_worker_controller(
       worker_email,
       manager_email,
       access_token,
     );
     set_submitting(false);
 
-    if (data.success) {
+    if (result.success) {
       set_worker_email("");
       set_manager_email("");
 
       await refresh_employee();
     }
-    console.log(data.message);
+    console.log(result.message);
   }
 
   if (loading) {

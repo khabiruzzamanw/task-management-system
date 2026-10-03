@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../context/Auth.context.jsx";
 import { logout_controller } from "../../authentication/controller/logout.controller.js";
@@ -17,10 +17,13 @@ export default function Admin() {
   // if (tasks.length === 0) {
   //   return console.log("wait till tasks load");
   // }
+  //
 
   async function logout_handler() {
-    const data = await logout_controller(access_token);
-    if (!data.success) return;
+    const result = await logout_controller(access_token);
+    if (!result.success) {
+      return;
+    }
     set_user(null);
     set_access_token(null);
     navigate("/login");
@@ -116,18 +119,20 @@ export default function Admin() {
 
         <div>
           {tasks.map(function (task) {
-            return(<div>
-              <span className="">{task.title}</span>
-              <span className="">{task.description}</span>
-              <span className="">{task.priority}</span>
-              <span className="">{task.status}</span>
-              <span className="">
-                {task.assigned_to === null
-                  ? "not assigned yet"
-                  : task.assigned_to}
-              </span>
-              <span className="">{task.manager}</span>
-            </div>)
+            return (
+              <div key={task._id} className="mb-3">
+                <span className=" block ">{task.title}</span>
+                <span className=" block ">{task.description}</span>
+                <span className=" block ">{task.priority}</span>
+                <span className=" block ">{task.status}</span>
+                <span className=" block ">
+                  {task.assigned_to === null
+                    ? "not assigned yet"
+                    : task.assigned_to?.name}
+                </span>
+                <span className=" block ">{task.manager?.name}</span>
+              </div>
+            );
           })}
         </div>
       </div>

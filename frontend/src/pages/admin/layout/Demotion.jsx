@@ -14,13 +14,13 @@ export default function Demotion() {
 
   async function demote_handler(email) {
     set_demoting_email(email);
-    const data = await demotion_controller(email, access_token);
+    const result = await demotion_controller(email, access_token);
     set_demoting_email(null);
 
-    if (data.success) {
+    if (result.success) {
       await refresh_employee();
     }
-    console.log(data.message);
+    console.log(result.message);
   }
 
   if (loading) {

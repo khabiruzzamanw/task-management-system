@@ -26,11 +26,11 @@ async function fetch_session(access_token) {
       },
     },
   );
-  const data = await response.json();
+  const result = await response.json();
   if (!response.ok) {
-    throw new Error(data.message);
+    throw new Error(result.message);
   }
-  return data;
+  return result.data;
 }
 
 export function Tasks_Provider({ children }) {
