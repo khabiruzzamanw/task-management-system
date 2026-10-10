@@ -1,4 +1,5 @@
 import { App_error } from "../../../utils/app_outcome_handler.js";
+import { hash_token } from "../../../utils/token_hasher.js";
 import User from "../../user/model/user.model.js";
 import bcryptjs from "bcryptjs";
 
@@ -26,7 +27,7 @@ export async function login_service({ email, password }) {
 }
 
 export async function update_refresh_token(_id, token) {
-  const hashed_refresh_token = await bcryptjs.hash(token, 10);
+  const hashed_refresh_token = hash_token(token);
   const updated_user = await User.findByIdAndUpdate(
     _id,
     { refresh_token: hashed_refresh_token },

@@ -20,7 +20,7 @@ export default async function task_change_as_worker_controller(req, res) {
       "you are not permitted to do this",
       403,
       "FORBIDDEN",
-      "worker can only edit task status into in_progress ",
+      "worker can only edit task status into submitted ",
     );
   }
 

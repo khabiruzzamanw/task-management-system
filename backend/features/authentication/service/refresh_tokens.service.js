@@ -1,9 +1,9 @@
-import bcryptjs from "bcryptjs";
 import jsonwebtoken from "jsonwebtoken";
 import { token_generator } from "../../../utils/token_generator.js";
 import User from "../../user/model/user.model.js";
 import variables from "../../../config/env_variables.js";
 import { App_error } from "../../../utils/app_outcome_handler.js";
+import { hash_token } from "../../../utils/token_hasher.js";
 
 export default async function refresh_tokens_service(token) {
   const decoded_user = jsonwebtoken.verify(
@@ -20,15 +20,10 @@ export default async function refresh_tokens_service(token) {
     throw new App_error("user is not found", 404, "USER_NOT_FOUND");
   }
   if (!authorized_user.refresh_token) {
-    throw new App_error("refresh token is not found", 404, "INVALID_TOKEN");
+    throw new App_error("refresh token is not found", 404, "TOKEN_NOT_FOUND");
   }
 
-  const is_refresh_token_valid = await bcryptjs.compare(
-    token,
-    authorized_user.refresh_token,
-  );
-
-  if (!is_refresh_token_valid) {
+  if (hash_token(token) !== authorized_user.refresh_token) {
     throw new App_error("token is invalid or expired", 401, "INVALID_TOKEN");
   }
 
@@ -45,7 +40,7 @@ export default async function refresh_tokens_service(token) {
     "refresh",
   );
 
-  const new_hashed_refresh_token = await bcryptjs.hash(new_refresh_token, 10);
+  const new_hashed_refresh_token = hash_token(new_refresh_token);
 
   const user_with_new_refresh = await User.findByIdAndUpdate(
     authorized_user._id,

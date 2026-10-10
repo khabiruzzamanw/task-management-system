@@ -21,7 +21,7 @@ export async function pass_change_controller(req, res) {
   }
 const is_pass_inappropriate =   new_password.length < min_length || new_password.length > max_length ||   current_password.length < min_length || current_password.length > max_length
 
-  if (!is_pass_inappropriate) {
+  if (is_pass_inappropriate) {
     throw new App_error(`password has to be between 8 and 72 chars`, 403, "VALIDATION_ERROR");
 }
   await pass_change_service({
