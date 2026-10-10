@@ -114,8 +114,8 @@ export default function Manager() {
           </div>
           <div className="card-vintage-stats">
             <span className="label-vintage">Rejected</span>
-            <span className="block text-display-xl font-bold leading-none py-2 text-clear">
-              {manager_tasks.filter((t) => t.status === "rejected").length}
+            <span className="block text-display-xl font-bold leading-none py-2 text-alert">
+              {tasks.filter((t) => t.status === "rejected").length}
             </span>
             <span className="text-xs leading-normal text-dim">Bad work</span>
           </div>

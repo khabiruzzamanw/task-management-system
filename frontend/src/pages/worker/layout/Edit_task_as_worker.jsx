@@ -124,7 +124,7 @@ export default function Edit_task_as_worker() {
                 className="select-vintage"
                 name="status"
                 disabled={is_out_of_option}
-                value={form.status}
+                value={form.status ?? the_task.status}
                 onChange={input_handler}
               >
                 <option value={the_task.status}>

@@ -13,7 +13,7 @@ export default function Demotion() {
 
   async function demote_handler(email) {
     set_demoting_email(email);
-    const result = await demotion_controller({manager_email:email});
+    const result = await demotion_controller(email);
     set_demoting_email(null);
 
     if (!result.success) {

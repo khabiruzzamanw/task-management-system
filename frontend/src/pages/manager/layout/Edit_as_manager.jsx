@@ -122,7 +122,7 @@ export default function Edit_task_as_manager() {
                 className="select-vintage"
                 name="status"
                 disabled={is_out_of_option}
-                value={form.status}
+                value={form.status ?? the_task.status}
                 onChange={input_handler}
               >
                 <option value={the_task.status}>
@@ -144,7 +144,7 @@ export default function Edit_task_as_manager() {
                 onChange={input_handler}
                 name="worker_email"
                 disabled={!can_change_worker}
-                value={form?.worker_email}
+                value={form?.worker_email ?? the_task?.assigned_to?.email}
                 className="select-vintage"
               >
                 <option value={the_task?.assigned_to?.email}>

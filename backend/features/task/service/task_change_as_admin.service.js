@@ -27,17 +27,18 @@ export default async function task_change_as_admin_service(
   }
   const can_change_manager =
     task.status === "pending" || task.status === "in_progress";
+  const can_edit = task.status === "pending" || task.status === "in_progress";
   const is_allowed_status = is_available_status[task.status];
 
-  if (title !== undefined) {
+  if (title !== undefined && can_edit) {
     task.title = title;
   }
 
-  if (description !== undefined) {
+  if (description !== undefined && can_edit) {
     task.description = description;
   }
 
-  if (priority !== undefined) {
+  if (priority !== undefined && can_edit) {
     task.priority = priority;
   }
 
