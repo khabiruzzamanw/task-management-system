@@ -22,8 +22,6 @@ export default async function task_change_as_admin_controller(req, res) {
       "task  id is missing from fillng space",
     );
   }
-  console.log(status);
-
   if (!admin_allowed_status.includes(status)) {
     throw new App_error(
       "you are not permitted to do this",

@@ -7,11 +7,14 @@ import { useToast } from "../../../context/Notify.context.jsx";
 import Loading_screen from "../../../components/Loading_screen.jsx";
 
 export default function Admin() {
-  const { user, set_user, set_access_token_globally } = useAuth();
+  const { user, set_user, set_access_token_globally, user_loading } = useAuth();
   const navigate = useNavigate();
   const { notify } = useToast();
   const { tasks, task_loading } = useTaskCenter();
 
+  if (task_loading || user_loading) {
+    return <Loading_screen />;
+  }
   async function logout_handler() {
     const result = await logout_controller();
     if (!result.success) {
@@ -20,9 +23,6 @@ export default function Admin() {
     set_user(null);
     set_access_token_globally(null);
     navigate("/login");
-  }
-  if (task_loading) {
-    return <Loading_screen />;
   }
 
   return (

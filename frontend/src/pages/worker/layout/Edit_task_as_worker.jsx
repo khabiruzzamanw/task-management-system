@@ -12,10 +12,8 @@ export default function Edit_task_as_worker() {
   const navigate = useNavigate();
   const { notify } = useToast();
   const { tasks, refresh_tasks, task_loading } = useTaskCenter();
-  const { access_token, user_loading } = useAuth();
-  if (task_loading || user_loading) {
-    return <Loading_screen/>;
-
+  if (task_loading) {
+    return <Loading_screen />;
   }
   const the_task = tasks.find(function (task) {
     return task._id === params.task_id;
@@ -31,7 +29,7 @@ export default function Edit_task_as_worker() {
   async function submit_handler(e) {
     e.preventDefault();
     const body = { ...form, task_id: params.task_id };
-    const result = await edit_task_as_worker_controller(body, access_token);
+    const result = await edit_task_as_worker_controller(body);
     if (!result.success) {
       return notify(result.message, "error");
     }

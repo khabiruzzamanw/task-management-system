@@ -2,7 +2,6 @@ import { useState } from "react";
 import { task_creation_controller } from "../controller/task_creation.controller.js";
 import { useNavigate } from "react-router-dom";
 import { useEmployee } from "../../../context/Employee.context.jsx";
-import { useAuth } from "../../../context/Auth.context.jsx";
 import { useTaskCenter } from "../../../context/Task.context.jsx";
 import { useToast } from "../../../context/Notify.context.jsx";
 import Loading_screen from "../../../components/Loading_screen.jsx";
@@ -21,7 +20,7 @@ export default function Task_creation() {
   const { refresh_tasks, task_loading } = useTaskCenter();
 
   if (employee_loading || task_loading) {
-    return <Loading_screen/>;
+    return <Loading_screen />;
   }
   const managers = employee.filter(function (user) {
     return user.role === "manager";
@@ -43,7 +42,6 @@ export default function Task_creation() {
       return { ...prev, [e.target.name]: e.target.value };
     });
   }
-
 
   return (
     <>

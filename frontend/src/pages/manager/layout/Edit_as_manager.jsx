@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useTaskCenter } from "../../../context/Task.context.jsx";
 import { useWorker } from "../../../context/Worker.context.jsx";
-import { useAuth } from "../../../context/Auth.context.jsx";
+
 import { edit_task_as_manager_controller } from "../controller/edit_task_as_manager.controller.js";
 import { useToast } from "../../../context/Notify.context.jsx";
 import Loading_screen from "../../../components/Loading_screen.jsx";
@@ -12,12 +12,11 @@ export default function Edit_task_as_manager() {
   const [form, set_form] = useState({});
   const navigate = useNavigate();
   const { notify } = useToast();
-  const { access_token, user_loading } = useAuth();
+
   const { tasks, refresh_tasks, task_loading } = useTaskCenter();
   const { worker, worker_loading } = useWorker();
-  if (task_loading || worker_loading || user_loading) {
-    return <Loading_screen/>;
-
+  if (task_loading || worker_loading) {
+    return <Loading_screen />;
   }
   const the_task = tasks.find(function (task) {
     return task._id === params.task_id;
@@ -33,7 +32,7 @@ export default function Edit_task_as_manager() {
   async function submit_handler(e) {
     e.preventDefault();
     const body = { ...form, task_id: the_task._id };
-    const result = await edit_task_as_manager_controller(body, access_token);
+    const result = await edit_task_as_manager_controller(body);
     if (!result.success) {
       return notify(result.message, "error");
     }
@@ -58,7 +57,8 @@ export default function Edit_task_as_manager() {
   };
   const is_allowed_status = is_available_status[the_task.status];
   const is_out_of_option = is_allowed_status.length === 0;
-  const can_change_worker = the_task.status === "pending" || the_task.status === "in_progress"
+  const can_change_worker =
+    the_task.status === "pending" || the_task.status === "in_progress";
 
   return (
     <>
