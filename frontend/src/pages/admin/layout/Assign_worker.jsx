@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useEmployee } from "../../../context/Employee.context";
 import assign_worker_controller from "../controller/assign_worker.controller";
 import { useToast } from "../../../context/Notify.context";
+import Loading_screen from "../../../components/Loading_screen";
 
 export default function Assign_worker() {
   const { employee, employee_loading, refresh_employee } = useEmployee();
@@ -11,8 +12,8 @@ export default function Assign_worker() {
   const [worker_email, set_worker_email] = useState("");
   const [manager_email, set_manager_email] = useState("");
   const [submitting, set_submitting] = useState(false);
-  if (employee_loading ) {
-    return <div className="text-fuchsia-100 text-3xl">loading</div>;
+  if (employee_loading) {
+    return <Loading_screen />;
   }
 
   async function submit_handler(e) {
@@ -28,10 +29,6 @@ export default function Assign_worker() {
     }
     notify(result.message, "success");
     refresh_employee();
-  }
-
-  if (employee_loading) {
-    return <div className="text-4xl text-green-200">Loading</div>;
   }
 
   const managers = employee.filter(function (u) {

@@ -3,6 +3,7 @@ import { useAuth } from "../../../context/Auth.context.jsx";
 import { logout_controller } from "../../authentication/controller/logout.controller.js";
 import { useTaskCenter } from "../../../context/Task.context.jsx";
 import Task_view_card from "../../../components/Task_view_card.jsx";
+import Loading_screen from "../../../components/Loading_screen.jsx";
 
 export default function Worker() {
   const navigate = useNavigate();
@@ -17,7 +18,8 @@ export default function Worker() {
   if (task_loading || user_loading) {
     return (
       <>
-        <div className="text-4xl text-green-100">loading</div>
+        return <Loading_screen/>;
+
       </>
     );
   }
@@ -69,13 +71,6 @@ export default function Worker() {
               {worker_tasks.length}
             </span>
             <span className="text-xs leading-normal text-dim">all tasks</span>
-          </div>
-          <div className="card-vintage-stats">
-            <span className="label-vintage">Pending</span>
-            <span className="block text-display-xl font-bold leading-none py-2 text-parchment">
-              {worker_tasks.filter((t) => t.status === "pending").length}
-            </span>
-            <span className="text-xs leading-normal text-dim">not started</span>
           </div>
           <div className="card-vintage-stats">
             <span className="label-vintage">In progress</span>

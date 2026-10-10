@@ -3,12 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { login_controller } from "../controller/login.controller.js";
 import { useAuth } from "../../../context/Auth.context.jsx";
 import { useToast } from "../../../context/Notify.context.jsx";
+import Loading_screen from "../../../components/Loading_screen.jsx";
 
 export default function Login() {
   const navigate = useNavigate();
   const [worker, set_worker] = useState({});
-  const [display_error, set_display_error] = useState();
-  const [need_to_display, set_need_to_display] = useState(false);
+
   const { set_user, set_access_token_globally, user_loading } = useAuth();
   const { notify } = useToast();
 
@@ -20,7 +20,7 @@ export default function Login() {
   if (user_loading) {
     return (
       <>
-        <div className="text-4xl text-green-200">loading</div>
+        <Loading_screen />
       </>
     );
   }
@@ -87,13 +87,6 @@ export default function Login() {
                 required
               />
             </div>
-            {need_to_display && (
-              <>
-                <span className="border border-red-600/40 text-center py-0.5 px-1.5 text-lg text-red-500 ">
-                  {display_error}{" "}
-                </span>
-              </>
-            )}
 
             <hr className="hr-hairline" />
 

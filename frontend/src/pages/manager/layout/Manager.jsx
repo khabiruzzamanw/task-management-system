@@ -6,6 +6,7 @@ import { logout_controller } from "../../authentication/controller/logout.contro
 import { useTaskCenter } from "../../../context/Task.context.jsx";
 import Task_view_card from "../../../components/Task_view_card.jsx";
 import { useToast } from "../../../context/Notify.context.jsx";
+import Loading_screen from "../../../components/Loading_screen.jsx";
 
 export default function Manager() {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ export default function Manager() {
   if (task_loading || user_loading) {
     return (
       <>
-        <div className="text-4xl text-green-100">loading</div>
+        return <Loading_screen />;
       </>
     );
   }

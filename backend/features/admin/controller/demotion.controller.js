@@ -2,15 +2,15 @@ import { App_error, App_response } from "../../../utils/app_outcome_handler.js";
 import demotion_service from "../service/demotion.service.js";
 
 export default async function demotion_controller(req, res) {
-  const { worker_email } = req.body;
+  const { manager_email } = req.body;
 
-  if (!worker_email) {
-    throw new App_error("worker's email is missing", 400, "VALIDATION_ERROR");
+  if (!manager_email) {
+    throw new App_error("manager's email is missing", 400, "VALIDATION_ERROR");
   }
+  await demotion_service(manager_email);
 
-  const is_demoted = await demotion_service(worker_email);
-
-  return new App_response("worker is demoted successfully", 200).send_response(
-    res,
-  );
+  return new App_response(
+    "managers is demoted successfully",
+    200,
+  ).send_response(res);
 }

@@ -1,6 +1,5 @@
 import refresh_tokens_service from "../service/refresh_tokens.service.js";
 import { App_error, App_response } from "../../../utils/app_outcome_handler.js";
-import variables from "../../../config/env_variables.js";
 import { cookie_options } from "../../../utils/cookie_handler.js";
 
 export default async function refresh_token_controller(req, res) {
@@ -10,7 +9,6 @@ export default async function refresh_token_controller(req, res) {
   }
 
   const refreshed_data = await refresh_tokens_service(token);
-  const is_prod = variables.NODE_ENV === "production";
   res.cookie("refreshToken", refreshed_data.new_refresh_token, cookie_options);
 
   return new App_response("tokens are refreshed", 200, {

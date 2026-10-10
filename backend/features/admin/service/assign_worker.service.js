@@ -26,6 +26,9 @@ export default async function assign_worker_service(
       "VALIDATION_ERROR",
     );
   }
+  if (!the_worker.manager) {
+    throw new App_error(`${the_worker.name} is already assigned to a manager`,409,"CONFLICT")
+  }
 
   return await User.findOneAndUpdate(
     { email: worker_email },

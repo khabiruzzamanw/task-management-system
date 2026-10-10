@@ -5,6 +5,7 @@ import { useEmployee } from "../../../context/Employee.context.jsx";
 import { useAuth } from "../../../context/Auth.context.jsx";
 import { useTaskCenter } from "../../../context/Task.context.jsx";
 import { useToast } from "../../../context/Notify.context.jsx";
+import Loading_screen from "../../../components/Loading_screen.jsx";
 
 export default function Task_creation() {
   const [task_form, set_task_form] = useState({
@@ -19,6 +20,9 @@ export default function Task_creation() {
   const { employee, employee_loading } = useEmployee();
   const { refresh_tasks, task_loading } = useTaskCenter();
 
+  if (employee_loading || task_loading) {
+    return <Loading_screen/>;
+  }
   const managers = employee.filter(function (user) {
     return user.role === "manager";
   });
@@ -40,9 +44,6 @@ export default function Task_creation() {
     });
   }
 
-  if (employee_loading || task_loading) {
-    return <div className="text-4xl text-green-100">Loading</div>;
-  }
 
   return (
     <>

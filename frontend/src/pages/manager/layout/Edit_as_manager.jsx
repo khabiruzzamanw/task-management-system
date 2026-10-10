@@ -5,6 +5,7 @@ import { useWorker } from "../../../context/Worker.context.jsx";
 import { useAuth } from "../../../context/Auth.context.jsx";
 import { edit_task_as_manager_controller } from "../controller/edit_task_as_manager.controller.js";
 import { useToast } from "../../../context/Notify.context.jsx";
+import Loading_screen from "../../../components/Loading_screen.jsx";
 
 export default function Edit_task_as_manager() {
   let params = useParams();
@@ -15,7 +16,8 @@ export default function Edit_task_as_manager() {
   const { tasks, refresh_tasks, task_loading } = useTaskCenter();
   const { worker, worker_loading } = useWorker();
   if (task_loading || worker_loading || user_loading) {
-    return <div className="text-2xl text-green-300"> loading</div>;
+    return <Loading_screen/>;
+
   }
   const the_task = tasks.find(function (task) {
     return task._id === params.task_id;
@@ -56,6 +58,7 @@ export default function Edit_task_as_manager() {
   };
   const is_allowed_status = is_available_status[the_task.status];
   const is_out_of_option = is_allowed_status.length === 0;
+  const can_change_worker = the_task.status === "pending" || the_task.status === "in_progress"
 
   return (
     <>
@@ -140,7 +143,7 @@ export default function Edit_task_as_manager() {
               <select
                 onChange={input_handler}
                 name="worker_email"
-
+                disabled={!can_change_worker}
                 value={form?.worker_email}
                 className="select-vintage"
               >

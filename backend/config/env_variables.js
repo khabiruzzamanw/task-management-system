@@ -10,6 +10,7 @@ const variables = {
   REFRESH_TOKEN_EXPIRY: process.env.REFRESH_TOKEN_EXPIRY,
   ORG_DOMAIN: process.env.ORG_DOMAIN,
   NODE_ENV: process.env.NODE_ENV,
+  CLIENT_URL: process.env.CLIENT_URL,
 };
 
 export default variables;

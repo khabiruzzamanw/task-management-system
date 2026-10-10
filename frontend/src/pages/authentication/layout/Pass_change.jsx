@@ -3,13 +3,18 @@ import pass_change_controller from "../controller/pass_change.controller";
 import { useAuth } from "../../../context/Auth.context";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "../../../context/Notify.context";
+import Loading_screen from "../../../components/Loading_screen";
 
 export default function Pass_change() {
   const [current_password, set_current_password] = useState("");
   const [new_password, set_new_password] = useState("");
   const [new_password_again, set_new_password_again] = useState("");
   const [submitting, set_submitting] = useState(false);
-  const { user } = useAuth();
+  const { user ,user_loading} = useAuth();
+  if (user_loading) {
+    return <Loading_screen/>;
+}
+
   const max_length = 72;
   const min_length = 8;
   const navigate = useNavigate();

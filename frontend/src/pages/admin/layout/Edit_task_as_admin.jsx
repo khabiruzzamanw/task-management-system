@@ -5,6 +5,7 @@ import { useEmployee } from "../../../context/Employee.context.jsx";
 import { edit_task_as_admin_controller } from "../controller/edit_task_as_admin.controller.js";
 import { useAuth } from "../../../context/Auth.context.jsx";
 import { useToast } from "../../../context/Notify.context.jsx";
+import Loading_screen from "../../../components/Loading_screen.jsx";
 
 export default function Edit_task_as_admin() {
   const { tasks, refresh_tasks, task_loading } = useTaskCenter();
@@ -14,7 +15,7 @@ export default function Edit_task_as_admin() {
   const { notify } = useToast();
   const [adds, set_adds] = useState({});
   if (task_loading || employee_loading) {
-    return <div className="text-2xl text-green-300"> loading</div>;
+    return <Loading_screen/>;
   }
   const the_task = tasks.find(function (task) {
     return task._id === params.task_id;
@@ -70,6 +71,8 @@ export default function Edit_task_as_admin() {
   };
   const is_allowed_status = is_available_status[the_task.status];
   const is_out_of_option = is_allowed_status.length === 0;
+  const can_change_manager =
+    the_task.status === "pending" || the_task.status === "in_progress";
 
   return (
     <>
@@ -167,6 +170,7 @@ export default function Edit_task_as_admin() {
               <select
                 className="select-vintage"
                 name="manager_email"
+                disabled={!can_change_manager}
                 value={form.manager_email}
                 onChange={input_handler}
                 required

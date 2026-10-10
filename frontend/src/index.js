@@ -12,7 +12,7 @@ import Auth_protected_route from "./pages/authentication/layout/auth_protected.j
 import Pass_change from "./pages/authentication/layout/Pass_change.jsx";
 import Manager from "./pages/manager/layout/Manager.jsx";
 import Manager_protected_route from "./pages/authentication/layout/manager_protected.jsx";
-import Worker_protected_route from "./pages/admin/layout/worker_protected.jsx";
+import Worker_protected_route from "./pages/authentication/layout/worker_protected.jsx";
 import No_user_protected_route from "./pages/authentication/layout/No_user_protected.jsx";
 import Edit_task_as_worker from "./pages/worker/layout/Edit_task_as_worker.jsx";
 import Edit_task_as_manager from "./pages/manager/layout/Edit_as_manager.jsx";

@@ -20,6 +20,10 @@ export default async function task_change_as_manager_service(
   if (!task) {
     throw new App_error("task not found", 404, "TASK_NOT_FOUND");
   }
+
+  const can_change_worker =
+    task.status === "pending" || task.status === "in_progress";
+
   if (status !== undefined) {
     const is_allowed_status = is_available_status[task.status];
     if (!is_allowed_status.includes(status)) {
@@ -32,7 +36,7 @@ export default async function task_change_as_manager_service(
     }
     task.status = status;
   }
-  if (worker_email !== undefined) {
+  if (worker_email !== undefined && can_change_worker) {
     if (worker_email === null || worker_email === "") {
       task.assigned_to = null;
     } else {
@@ -51,7 +55,7 @@ export default async function task_change_as_manager_service(
         .select("_id")
         .lean();
       if (!worker) {
-        throw new App_error("worker is not found",404,"USER_NOT_FOUND")
+        throw new App_error("worker is not found", 404, "USER_NOT_FOUND");
       }
       task.assigned_to = worker._id;
       task.status = "in_progress";

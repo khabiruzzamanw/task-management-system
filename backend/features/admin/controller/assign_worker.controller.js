@@ -11,5 +11,5 @@ export default async function assign_worker_controller(req, res) {
 
     await assign_worker_service(manager_email, worker_email);
 
-  return new App_response("worker is assign", 200).send_response(res);
+  return new App_response("worker is assigned", 200).send_response(res);
 }

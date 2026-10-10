@@ -4,6 +4,7 @@ import { useTaskCenter } from "../../../context/Task.context.jsx";
 import { edit_task_as_worker_controller } from "../controller/edit_task_as_worker.controller.js";
 import { useAuth } from "../../../context/Auth.context.jsx";
 import { useToast } from "../../../context/Notify.context.jsx";
+import Loading_screen from "../../../components/Loading_screen.jsx";
 
 export default function Edit_task_as_worker() {
   let params = useParams();
@@ -13,7 +14,8 @@ export default function Edit_task_as_worker() {
   const { tasks, refresh_tasks, task_loading } = useTaskCenter();
   const { access_token, user_loading } = useAuth();
   if (task_loading || user_loading) {
-    return <div className="text-2xl text-green-300"> loading</div>;
+    return <Loading_screen/>;
+
   }
   const the_task = tasks.find(function (task) {
     return task._id === params.task_id;

@@ -3,6 +3,7 @@ import { useEmployee } from "../../../context/Employee.context";
 import { useNavigate } from "react-router-dom";
 import demotion_controller from "../controller/demotion.controller";
 import { useToast } from "../../../context/Notify.context";
+import Loading_screen from "../../../components/Loading_screen";
 
 export default function Demotion() {
   const { employee, employee_loading, refresh_employee } = useEmployee();
@@ -12,7 +13,7 @@ export default function Demotion() {
 
   async function demote_handler(email) {
     set_demoting_email(email);
-    const result = await demotion_controller(email);
+    const result = await demotion_controller({manager_email:email});
     set_demoting_email(null);
 
     if (!result.success) {
@@ -23,7 +24,7 @@ export default function Demotion() {
   }
 
   if (employee_loading) {
-    return <div className="text-4xl text-green-200">Loading</div>;
+    return <Loading_screen/>;
   }
 
   const workers = employee.filter(function (worker) {

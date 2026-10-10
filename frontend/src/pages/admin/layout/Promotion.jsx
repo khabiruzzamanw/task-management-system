@@ -3,12 +3,16 @@ import { useEmployee } from "../../../context/Employee.context";
 import promotion_controller from "../controller/promotion.controller";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "../../../context/Notify.context";
+import Loading_screen from "../../../components/Loading_screen";
 
 export default function Promotion() {
   const { employee, employee_loading, refresh_employee } = useEmployee();
   const [promoting_email, set_promoting_email] = useState(null);
   const navigate = useNavigate();
   const { notify } = useToast();
+  if (employee_loading) {
+    return <Loading_screen/>;
+  }
 
   async function promote_handler(email) {
     set_promoting_email(email);
@@ -22,9 +26,6 @@ export default function Promotion() {
     notify(result.message, "success");
   }
 
-  if (employee_loading) {
-    return <div className="text-4xl text-green-200">Loading</div>;
-  }
 
   const workers = employee.filter(function (worker) {
     return worker.role === "worker";

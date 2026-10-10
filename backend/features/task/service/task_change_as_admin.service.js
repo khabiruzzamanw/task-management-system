@@ -21,11 +21,12 @@ export default async function task_change_as_admin_service(
 
   manager_email,
 ) {
-
   const task = await Task.findOne({ _id: task_id, assigned_by: admin_id });
   if (!task) {
-    throw new App_error("task isn't found " ,404,"TASK_NOT_FOUND")
+    throw new App_error("task isn't found ", 404, "TASK_NOT_FOUND");
   }
+  const can_change_manager =
+    task.status === "pending" || task.status === "in_progress";
   const is_allowed_status = is_available_status[task.status];
 
   if (title !== undefined) {
@@ -52,7 +53,7 @@ export default async function task_change_as_admin_service(
     task.status = status;
   }
 
-  if (manager_email !== undefined) {
+  if (manager_email !== undefined && can_change_manager) {
     const manager_user = await User.findOne({
       email: manager_email,
       role: "manager",
@@ -60,11 +61,11 @@ export default async function task_change_as_admin_service(
       .select("_id")
       .lean();
     if (!manager_user) {
-      throw new App_error("manager is not found",404,"USER_NOT_FOUND")
+      throw new App_error("manager is not found", 404, "USER_NOT_FOUND");
     }
     task.manager = manager_user._id;
     task.assigned_to = null;
-    task.status = "pending"
+    task.status = "pending";
   }
 
   await task.save();
