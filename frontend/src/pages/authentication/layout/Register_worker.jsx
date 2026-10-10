@@ -7,7 +7,7 @@ import { useToast } from "../../../context/Notify.context.jsx";
 export default function Register_worker() {
   const navigate = useNavigate();
   const { notify } = useToast();
-  const [form, set_form] = useState({});
+  const [form, set_form] = useState({ name: "", email: "", password: "" });
   const { refresh_employee } = useEmployee();
 
   function input_handler(e) {

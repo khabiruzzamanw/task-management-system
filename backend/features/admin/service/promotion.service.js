@@ -6,6 +6,9 @@ export default async function promotion_service(worker_email) {
   const is_worker = await User.findOne({ email: worker_email })
     .select("-password")
     .lean();
+  if (!is_worker) {
+    throw new App_error(`user is not found`, 404, "USER_NOT_FOUND");
+  }
   if (is_worker.role !== "worker") {
     throw new App_error(`has to be worker to promote`, 403, "VALIDATION_ERROR");
   }

@@ -110,10 +110,18 @@ export default function Admin() {
 
           <div className="card-vintage-stats">
             <span className="label-vintage">Rejected</span>
-            <span className="block text-display-xl font-bold leading-none py-2 text-clear">
+            <span className="block text-display-xl font-bold leading-none py-2 text-alert">
               {tasks.filter((t) => t.status === "rejected").length}
             </span>
             <span className="text-xs leading-normal text-dim">Bad work</span>
+          </div>
+
+          <div className="card-vintage-stats">
+            <span className="label-vintage">Canceled</span>
+            <span className="block text-display-xl font-bold leading-none py-2 text-ghost">
+              {tasks.filter((t) => t.status === "canceled").length}
+            </span>
+            <span className="text-xs leading-normal text-dim">called off</span>
           </div>
         </div>
 

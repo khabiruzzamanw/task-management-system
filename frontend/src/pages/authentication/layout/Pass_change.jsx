@@ -11,14 +11,14 @@ export default function Pass_change() {
   const [new_password_again, set_new_password_again] = useState("");
   const [submitting, set_submitting] = useState(false);
   const { user ,user_loading} = useAuth();
+  const navigate = useNavigate();
+  const { notify } = useToast();
   if (user_loading) {
     return <Loading_screen/>;
 }
 
   const max_length = 72;
   const min_length = 8;
-  const navigate = useNavigate();
-  const { notify } = useToast();
 
   function go_back() {
     if (user?.role === "admin") {

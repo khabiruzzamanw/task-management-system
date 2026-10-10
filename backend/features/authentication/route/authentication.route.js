@@ -15,6 +15,6 @@ route.post("/register-user", authentify, adminify, register_controller);
 route.get("/refresh-tokens", refresh_token_controller);
 route.patch("/change-pass", authentify, pass_change_controller);
 route.get("/get-me", authentify, get_me_controller);
-route.get("/logout", authentify, logout_controller);
+route.delete("/logout", authentify, logout_controller);
 
 export default route;

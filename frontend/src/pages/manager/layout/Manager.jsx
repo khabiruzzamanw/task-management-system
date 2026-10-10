@@ -20,11 +20,7 @@ export default function Manager() {
   } = useAuth();
   const { tasks, task_loading } = useTaskCenter();
   if (task_loading || user_loading) {
-    return (
-      <>
-        return <Loading_screen />;
-      </>
-    );
+    return <Loading_screen />;
   }
 
   const manager_tasks = tasks.filter(function (task) {

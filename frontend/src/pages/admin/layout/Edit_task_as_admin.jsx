@@ -15,7 +15,7 @@ export default function Edit_task_as_admin() {
   const { notify } = useToast();
   const [adds, set_adds] = useState({});
   if (task_loading || employee_loading) {
-    return <Loading_screen/>;
+    return <Loading_screen />;
   }
   const the_task = tasks.find(function (task) {
     return task._id === params.task_id;
@@ -73,6 +73,8 @@ export default function Edit_task_as_admin() {
   const is_out_of_option = is_allowed_status.length === 0;
   const can_change_manager =
     the_task.status === "pending" || the_task.status === "in_progress";
+  const can_edit =
+    the_task.status === "pending" || the_task.status === "in_progress";
 
   return (
     <>
@@ -105,8 +107,9 @@ export default function Edit_task_as_admin() {
                 className="input-vintage"
                 type="text"
                 name="title"
+                disabled={!can_edit}
                 placeholder="Task title"
-                value={form.title}
+                value={form.title ?? the_task.title}
                 onChange={input_handler}
                 required
               />
@@ -118,8 +121,9 @@ export default function Edit_task_as_admin() {
                 className="textarea-vintage"
                 rows={4}
                 name="description"
+                disabled={!can_edit}
                 placeholder="What needs to be done"
-                value={form.description}
+                value={form.description ?? the_task.description}
                 onChange={input_handler}
                 required
               />
@@ -131,7 +135,8 @@ export default function Edit_task_as_admin() {
                 <select
                   className="select-vintage"
                   name="priority"
-                  value={form.priority}
+                  disabled={!can_edit}
+                  value={form.priority ?? the_task.priority}
                   onChange={input_handler}
                 >
                   <option value="high">high</option>
@@ -146,7 +151,7 @@ export default function Edit_task_as_admin() {
                   className="select-vintage"
                   name="status"
                   disabled={is_out_of_option}
-                  value={form.status}
+                  value={form.status ?? the_task.status}
                   onChange={input_handler}
                 >
                   <option value={the_task.status}>
@@ -171,7 +176,7 @@ export default function Edit_task_as_admin() {
                 className="select-vintage"
                 name="manager_email"
                 disabled={!can_change_manager}
-                value={form.manager_email}
+                value={form.manager_email ?? the_task?.manager?.email}
                 onChange={input_handler}
                 required
               >

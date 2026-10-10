@@ -16,12 +16,7 @@ export default function Worker() {
   } = useAuth();
   const { tasks, task_loading } = useTaskCenter();
   if (task_loading || user_loading) {
-    return (
-      <>
-        return <Loading_screen/>;
-
-      </>
-    );
+    return <Loading_screen />;
   }
 
   const worker_tasks = tasks.filter(function (task) {

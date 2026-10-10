@@ -7,7 +7,7 @@ import Loading_screen from "../../../components/Loading_screen.jsx";
 
 export default function Login() {
   const navigate = useNavigate();
-  const [worker, set_worker] = useState({});
+  const [worker, set_worker] = useState({ email: "", password: "" });
 
   const { set_user, set_access_token_globally, user_loading } = useAuth();
   const { notify } = useToast();
