@@ -9,6 +9,9 @@ import manager_route from "./features/manager/route/manager.route.js"
 import { App_error } from "./utils/app_outcome_handler.js";
 
 const app = express();
+app.get('/api/health', (req, res) => {
+  res.status(200).json({ ok: true });
+});
 const corsOptions = {
   origin: "http://localhost:5173",
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
